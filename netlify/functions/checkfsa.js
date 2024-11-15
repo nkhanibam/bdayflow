@@ -1,24 +1,32 @@
 exports.handler = async (event) => {
-  const FSA = event.queryStringParameters.FSA;
+  const fsaCode = event.queryStringParameters.fsa;
 
-  if (FSA.length !== 3) {
+  // Check if FSA code is provided
+  if (!fsaCode) {
     return {
-      statusCode: 200,
-      body: JSON.stringify({ isValid: false })
+      statusCode: 400,
+      body: JSON.stringify({ error: 'FSA code is missing' })
     };
   }
 
-  const firstChar = FSA[0];
-  const secondChar = FSA[1];
-  const thirdChar = FSA[2];
-
-  if (!firstChar.match(/[A-Za-z0-9]/) || !secondChar.match(/[0-9]/) || !thirdChar.match(/[A-Za-z0-9]/)) {
+  // Check if FSA code is 3 characters long
+  if (fsaCode.length !== 3) {
     return {
-      statusCode: 200,
-      body: JSON.stringify({ isValid: false })
+      statusCode: 400,
+      body: JSON.stringify({ error: 'FSA code must be 3 characters long' })
     };
   }
 
+  // Check if the first and third characters are letters, and the second is a number
+  const regex = /^[A-Z][0-9][A-Z]$/i;
+  if (!regex.test(fsaCode)) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: 'Invalid FSA code format' })
+    };
+  }
+
+  // FSA code is valid
   return {
     statusCode: 200,
     body: JSON.stringify({ isValid: true })
