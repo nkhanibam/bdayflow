@@ -1,16 +1,16 @@
 exports.handler = async (event) => {
-  const fsa = event.queryStringParameters.fsa;
+  const FSA = event.queryStringParameters.FSA;
 
-  if (fsa.length !== 3) {
+  if (FSA.length !== 3) {
     return {
       statusCode: 200,
       body: JSON.stringify({ isValid: false })
     };
   }
 
-  const firstChar = fsa[0];
-  const secondChar = fsa[1];
-  const thirdChar = fsa[2];
+  const firstChar = FSA[0];
+  const secondChar = FSA[1];
+  const thirdChar = FSA[2];
 
   if (!firstChar.match(/[A-Za-z0-9]/) || !secondChar.match(/[0-9]/) || !thirdChar.match(/[A-Za-z0-9]/)) {
     return {
