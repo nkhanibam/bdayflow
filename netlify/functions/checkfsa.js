@@ -1,7 +1,6 @@
 exports.handler = async (event) => {
-  console.log('Received request body:', event.body);
-
-  const fsaCode = event.body.fsa;
+  const body = JSON.parse(event.body);
+  const fsaCode = body.fsa;
 
   if (fsaCode.length !== 3) {
     return {
