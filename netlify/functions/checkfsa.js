@@ -1,15 +1,15 @@
 exports.handler = async (event) => {
-  const fsaCode = event.queryStringParameters.fsa;
+  console.log('Received request body:', event.body);
 
-  // Check if FSA code is provided
+  const fsaCode = event.body.fsa;
+
   if (!fsaCode) {
     return {
       statusCode: 400,
-      body: JSON.stringify({ error: 'FSA code is missing' })
+      body: JSON.stringify({ error: 'FSA code is missing in the request body' })
     };
   }
 
-  // Check if FSA code is 3 characters long
   if (fsaCode.length !== 3) {
     return {
       statusCode: 400,
@@ -17,7 +17,6 @@ exports.handler = async (event) => {
     };
   }
 
-  // Check if the first and third characters are letters, and the second is a number
   const regex = /^[A-Z][0-9][A-Z]$/i;
   if (!regex.test(fsaCode)) {
     return {
@@ -26,7 +25,6 @@ exports.handler = async (event) => {
     };
   }
 
-  // FSA code is valid
   return {
     statusCode: 200,
     body: JSON.stringify({ isValid: true })
