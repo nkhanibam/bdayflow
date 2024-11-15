@@ -3,13 +3,6 @@ exports.handler = async (event) => {
 
   const fsaCode = event.body.fsa;
 
-  if (!fsaCode) {
-    return {
-      statusCode: 400,
-      body: JSON.stringify({ error: 'FSA code is missing in the request body' })
-    };
-  }
-
   if (fsaCode.length !== 3) {
     return {
       statusCode: 400,
