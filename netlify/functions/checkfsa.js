@@ -5,7 +5,7 @@ exports.handler = async (event) => {
   if (!fsaCode) {
     return {
       statusCode: 400,
-      body: JSON.stringify({ error: 'FSA code is missing 1.17' })
+      body: JSON.stringify({ error: 'FSA code is missing' })
     };
   }
 
